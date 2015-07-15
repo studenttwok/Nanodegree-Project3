@@ -42,6 +42,12 @@ public class myFetchService extends IntentService
         getData("n2");
         getData("p2");
 
+        // BROADCAST UPDATE FINISH
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("barqsoft.footballscores.ACTION_DATA_UPDATED");
+        this.sendBroadcast(broadcastIntent);
+
+
         return;
     }
 
@@ -124,6 +130,8 @@ public class myFetchService extends IntentService
                 }
 
                 processJSONdata(JSON_data, getApplicationContext(), true);
+
+
             } else {
                 //Could not Connect
                 Log.d(LOG_TAG, "Could not connect to server.");
