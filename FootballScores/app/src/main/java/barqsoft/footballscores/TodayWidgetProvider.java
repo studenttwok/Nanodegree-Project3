@@ -16,6 +16,7 @@ import android.widget.RemoteViews;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import barqsoft.footballscores.service.WidgetRemoteViewsService;
 import barqsoft.footballscores.service.myFetchService;
@@ -33,7 +34,7 @@ public class TodayWidgetProvider extends AppWidgetProvider{
             // get current Date
             long currentTime = System.currentTimeMillis();
             Date dateNow = new Date(currentTime);
-            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
             String dateStr = mformat.format(dateNow);
 
             views.setTextViewText(R.id.date_textview, dateStr);
@@ -52,6 +53,9 @@ public class TodayWidgetProvider extends AppWidgetProvider{
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             views.setOnClickPendingIntent(R.id.date_textview, pendingIntent);
+
+
+
 
             // Set up the collection
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {

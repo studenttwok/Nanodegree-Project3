@@ -2,9 +2,9 @@ package barqsoft.footballscores.service;
 
 
 import android.annotation.TargetApi;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
@@ -16,9 +16,10 @@ import android.widget.RemoteViewsService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
+import java.util.Locale;
 
 import barqsoft.footballscores.DatabaseContract;
+import barqsoft.footballscores.MainActivity;
 import barqsoft.footballscores.R;
 
 /**
@@ -54,6 +55,8 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
         return new RemoteViewsFactory() {
             private Cursor data = null;
 
+
+
             @Override
             public void onCreate() {
                 // Nothing to do
@@ -73,7 +76,7 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
                 final long identityToken = Binder.clearCallingIdentity();
 
                 Date dateNow = new Date(System.currentTimeMillis());
-                SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
                 String[] fragmentdate = new String[1];
                 fragmentdate[0] = mformat.format(dateNow);
@@ -99,6 +102,9 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
                 return data == null ? 0 : data.getCount();
             }
 
+
+
+
             @Override
             public RemoteViews getViewAt(int position) {
                 if (position == AdapterView.INVALID_POSITION ||
@@ -107,17 +113,24 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
                 }
                 RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget_scores_list_item);
 
+
+                // to main activity
+                //Intent intent = new Intent(WidgetRemoteViewsService.this, MainActivity.class);
+                //PendingIntent pendingIntent = PendingIntent.getActivity(WidgetRemoteViewsService.this, 0, intent, 0);
+                //views.setOnClickPendingIntent(R.id.widget_item, pendingIntent);
+
+
                 // set data from cursor...
                 String description = "";
                 String homeName = data.getString(INDEX_SCORE_HOME);
                 String awayName = data.getString(INDEX_SCORE_AWAY);
                 String score = data.getString(INDEX_SCORE_HOME_GOALS) + " - " + data.getString(INDEX_SCORE_AWAY_GOALS);
-                String date = data.getString(INDEX_SCORE_DATE);
+                //String date = data.getString(INDEX_SCORE_DATE);
                 String time = data.getString(INDEX_SCORE_TIME);
 
 
                 if (data.getString(INDEX_SCORE_HOME_GOALS).equals("-1") ||  data.getString(INDEX_SCORE_AWAY_GOALS).equals("-1")) {
-                    score = " - ";
+                    score = getString(R.string.hypen);
                 }
 
                 views.setTextViewText(R.id.home_name, homeName);

@@ -3,11 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/list_item"
+
     >
     <LinearLayout
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
+        android:id="@+id/widget_item"
         >
         <LinearLayout
             android:layout_width="0dp"
@@ -15,6 +17,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
             <TextView
+                android:contentDescription="@string/nameOfHomeTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -31,6 +34,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
             <TextView
+                android:contentDescription="@string/scoreOfMatch"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -42,6 +46,7 @@
                 android:textColor="@color/primary_text"
                 android:id="@+id/score_textview"/>
             <TextView
+                android:contentDescription="@string/timeOfMatch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/test_text"
@@ -59,6 +64,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
             <TextView
+                android:contentDescription="@string/nameOfAwayTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

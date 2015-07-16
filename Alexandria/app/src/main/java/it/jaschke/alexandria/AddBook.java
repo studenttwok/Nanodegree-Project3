@@ -29,6 +29,8 @@ import it.jaschke.alexandria.services.DownloadImage;
 
 
 public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    private final String LOG_TAG = AddBook.class.getSimpleName();
+
     private static final String TAG = "INTENT_TO_SCAN_ACTIVITY";
     private EditText ean;
     private final int LOADER_ID = 1;
@@ -41,6 +43,8 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
     private String mScanContents = "Contents:";
 
     private TextView inputLengthHintTextView;
+
+
 
     public AddBook(){
     }
@@ -85,6 +89,11 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
                 } else {
                     inputLengthHintTextView.setVisibility(View.GONE);
                 }
+
+                if (ean.length() == 0) {
+                    return;
+                }
+
 
                 //Once we have an ISBN, start a book intent
                 Intent bookIntent = new Intent(getActivity(), BookService.class);
@@ -214,6 +223,15 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         activity.setTitle(R.string.scan);
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        Log.d(LOG_TAG, "onViewStateRestored");
+        ((MainActivity)getActivity()).setTitle(R.string.scan);
+
+        ((MainActivity)getActivity()).restoreActionBar();
     }
 
     @Override

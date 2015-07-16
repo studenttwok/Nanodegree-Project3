@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.Vector;
 
@@ -47,8 +49,6 @@ public class myFetchService extends IntentService
         broadcastIntent.setAction("barqsoft.footballscores.ACTION_DATA_UPDATED");
         this.sendBroadcast(broadcastIntent);
 
-
-        return;
     }
 
     private void getData (String timeFrame)
@@ -75,7 +75,12 @@ public class myFetchService extends IntentService
 
             // Read the input stream into a String
             InputStream inputStream = m_connection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
+
+            // Should use String Builder?
+            //StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
+
+
             if (inputStream == null) {
                 // Nothing to do.
                 return;
@@ -101,6 +106,7 @@ public class myFetchService extends IntentService
         catch (Exception e)
         {
             Log.e(LOG_TAG,"Exception here" + e.getMessage());
+            Toast.makeText(this, R.string.connectionProblem, Toast.LENGTH_SHORT).show();
         }
         finally {
             if(m_connection != null)
@@ -184,7 +190,7 @@ public class myFetchService extends IntentService
             Vector<ContentValues> values = new Vector <ContentValues> (matches.length());
             for(int i = 0;i < matches.length();i++)
             {
-                Log.d(LOG_TAG, "Loop");
+                //Log.d(LOG_TAG, "Loop");
 
                 JSONObject match_data = matches.getJSONObject(i);
                 League = match_data.getJSONObject(LINKS).getJSONObject(SOCCER_SEASON).
@@ -197,7 +203,7 @@ public class myFetchService extends IntentService
                         League.equals("395")          ||
                         League.equals(PRIMERA_DIVISION)     )
                 {
-                    Log.d(LOG_TAG, "In");
+                    //Log.d(LOG_TAG, "In");
 
                     match_id = match_data.getJSONObject(LINKS).getJSONObject(SELF).
                             getString("href");
@@ -210,11 +216,11 @@ public class myFetchService extends IntentService
                     mDate = match_data.getString(MATCH_DATE);
                     mTime = mDate.substring(mDate.indexOf("T") + 1, mDate.indexOf("Z"));
                     mDate = mDate.substring(0,mDate.indexOf("T"));
-                    SimpleDateFormat match_date = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
+                    SimpleDateFormat match_date = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss", Locale.ENGLISH);
                     match_date.setTimeZone(TimeZone.getTimeZone("UTC"));
                     try {
                         Date parseddate = match_date.parse(mDate+mTime);
-                        SimpleDateFormat new_date = new SimpleDateFormat("yyyy-MM-dd:HH:mm");
+                        SimpleDateFormat new_date = new SimpleDateFormat("yyyy-MM-dd:HH:mm", Locale.ENGLISH);
                         new_date.setTimeZone(TimeZone.getDefault());
                         mDate = new_date.format(parseddate);
                         mTime = mDate.substring(mDate.indexOf(":") + 1);
@@ -223,7 +229,7 @@ public class myFetchService extends IntentService
                         if(!isReal){
                             //This if statement changes the dummy data's date to match our current date range.
                             Date fragmentdate = new Date(System.currentTimeMillis()+((i-2)*86400000));
-                            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                             mDate=mformat.format(fragmentdate);
                         }
                     }
@@ -249,13 +255,13 @@ public class myFetchService extends IntentService
                     match_values.put(DatabaseContract.scores_table.MATCH_DAY,match_day);
                     //log spam
 
-                    Log.v(LOG_TAG,match_id);
-                    Log.v(LOG_TAG,mDate);
-                    Log.v(LOG_TAG,mTime);
-                    Log.v(LOG_TAG,Home);
-                    Log.v(LOG_TAG,Away);
-                    Log.v(LOG_TAG,Home_goals);
-                    Log.v(LOG_TAG,Away_goals);
+//                    Log.v(LOG_TAG,match_id);
+//                    Log.v(LOG_TAG,mDate);
+//                    Log.v(LOG_TAG,mTime);
+//                    Log.v(LOG_TAG,Home);
+//                    Log.v(LOG_TAG,Away);
+//                    Log.v(LOG_TAG,Home_goals);
+//                    Log.v(LOG_TAG,Away_goals);
 
                     values.add(match_values);
                 }

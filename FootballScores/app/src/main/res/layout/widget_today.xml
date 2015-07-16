@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,6 +17,7 @@
             android:background="@color/blue01">
 
             <TextView
+                android:contentDescription="@string/matchOfToday"
                 android:id="@+id/date_textview"
                 android:text="@string/matchOfToday"
                 android:padding="8dp"
@@ -29,6 +29,7 @@
                 android:layout_weight="1"/>
 
             <Button
+                android:contentDescription="@string/refresh"
                 android:id="@+id/refresh_button"
                 android:text="@string/refresh"
                 android:layout_width="wrap_content"
@@ -51,6 +52,7 @@
                 android:dividerHeight="15sp" />
 
             <TextView
+                android:contentDescription="@string/noMatchToday"
                 android:textColor="#000000"
                 android:id="@+id/widget_empty"
                 android:layout_width="match_parent"
