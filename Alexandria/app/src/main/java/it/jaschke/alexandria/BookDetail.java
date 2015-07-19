@@ -147,12 +147,13 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
     @Override
     public void onPause() {
         Log.d(LOG_TAG, "onPause");
-
+        super.onPause();
+        /*
         super.onDestroyView();
         if(MainActivity.IS_TABLET && rootView.findViewById(R.id.right_container)==null){
             getActivity().getSupportFragmentManager().popBackStack();
-
         }
+        */
 
     }
 

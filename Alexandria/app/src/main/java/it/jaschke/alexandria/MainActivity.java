@@ -19,8 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import it.jaschke.alexandria.api.Callback;
 
 
@@ -37,7 +35,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence title;
-    public static boolean IS_TABLET = false;
     private BroadcastReceiver messageReciever;
 
     public static final String MESSAGE_EVENT = "MESSAGE_EVENT";
@@ -48,16 +45,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         super.onCreate(savedInstanceState);
 
 
-        IS_TABLET = isTablet();
+        setContentView(R.layout.activity_main);
 
-        Log.d(LOG_TAG, "IS_TABLET: " + IS_TABLET);
-
-
-        if (IS_TABLET) {
-            setContentView(R.layout.activity_main_tablet);
-        } else {
-            setContentView(R.layout.activity_main);
-        }
 
         messageReciever = new MessageReciever();
         IntentFilter filter = new IntentFilter(MESSAGE_EVENT);
@@ -73,6 +62,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        Log.d(LOG_TAG, "onNavigationDrawerItemSelected");
+
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment nextFragment;
@@ -144,6 +135,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         super.onDestroy();
     }
 
+    // Call from listofbooks fragment
     @Override
     public void onItemSelected(String ean) {
         Log.d(LOG_TAG, "onItemSelected");
@@ -186,19 +178,20 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         }
     }
 
-
+    // call from bookdetail
     // when the back button fo full detail fragment is clicked
     public void goBack(View view) {
         Log.d(LOG_TAG, "goBack");
 
-        getSupportFragmentManager().popBackStack();
+
+        if (findViewById(R.id.right_container) == null) {
+            Log.d(LOG_TAG, "popBackStack");
+            getSupportFragmentManager().popBackStack();
+        }
+
     }
 
-    private boolean isTablet() {
-        return (getApplicationContext().getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-    }
+
 
     @Override
     public void onBackPressed() {

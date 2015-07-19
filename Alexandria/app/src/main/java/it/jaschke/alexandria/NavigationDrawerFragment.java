@@ -29,6 +29,8 @@ import android.widget.ListView;
  */
 public class NavigationDrawerFragment extends Fragment {
 
+    private final String LOG_TAG = NavigationDrawerFragment.class.getSimpleName();
+
     /**
      * Remember the position of the selected item.
      */
@@ -194,6 +196,8 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void selectItem(int position) {
+        Log.d(LOG_TAG, "selectItem");
+
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
