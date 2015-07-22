@@ -22,7 +22,7 @@ import android.widget.Toast;
 import it.jaschke.alexandria.api.Callback;
 
 
-public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, Callback {
+public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -46,7 +46,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
 
         setContentView(R.layout.activity_main);
-
 
         messageReciever = new MessageReciever();
         IntentFilter filter = new IntentFilter(MESSAGE_EVENT);
@@ -135,38 +134,11 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         super.onDestroy();
     }
 
-    // Call from listofbooks fragment
-    @Override
-    public void onItemSelected(String ean) {
-        Log.d(LOG_TAG, "onItemSelected");
-
-        Bundle args = new Bundle();
-        args.putString(BookDetail.EAN_KEY, ean);
-
-        BookDetail fragment = new BookDetail();
-        fragment.setArguments(args);
-
-        int id = R.id.container;
-        if (findViewById(R.id.right_container) != null) {
-            id = R.id.right_container;
-        }
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(id, fragment);
-
-        if (findViewById(R.id.right_container) == null) {
-            ft.addToBackStack("Book Detail");
-        }
-
-        ft.commit();
-
-    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         Log.d(LOG_TAG, "onConfigurationChanged");
-
         super.onConfigurationChanged(newConfig);
-
     }
 
     private class MessageReciever extends BroadcastReceiver {

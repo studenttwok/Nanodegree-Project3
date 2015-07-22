@@ -1,6 +1,8 @@
 package it.jaschke.alexandria;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -42,6 +44,15 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        boolean twoPane = getActivity().getResources().getBoolean(R.bool.two_pane);
+
+        if (twoPane) {
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                // quit htis fragment...
+                getFragmentManager().popBackStack();
+            }
+        }
     }
 
 
@@ -156,8 +167,5 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
         */
 
     }
-
-
-
 
 }
