@@ -55,6 +55,8 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(LOG_TAG, "onCreateView");
+
 
         rootView = inflater.inflate(R.layout.fragment_add_book, container, false);
         ean = (EditText) rootView.findViewById(R.id.ean);
@@ -120,6 +122,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
             @Override
             public void onClick(View view) {
                 ean.setText("");
+                clearFields();
             }
         });
 
@@ -131,11 +134,17 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
                 bookIntent.setAction(BookService.DELETE_BOOK);
                 getActivity().startService(bookIntent);
                 ean.setText("");
+                clearFields();
             }
         });
 
         if(savedInstanceState!=null){
+            Log.d(LOG_TAG, "savedInstanceState");
+
+            TextView bookTitle = (TextView) rootView.findViewById(R.id.bookTitle);
+            bookTitle.setText("");
             ean.setText(savedInstanceState.getString(EAN_CONTENT));
+
             //ean.setHint("");
         }
 
@@ -167,9 +176,13 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
     @Override
     public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader, Cursor data) {
+        Log.d(LOG_TAG, "onLoadFinished");
+
+
         if (!data.moveToFirst()) {
             return;
         }
+
 
         String bookTitle = data.getString(data.getColumnIndex(AlexandriaContract.BookEntry.TITLE));
         ((TextView) rootView.findViewById(R.id.bookTitle)).setText(bookTitle);
@@ -228,6 +241,10 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
         ((MainActivity)getActivity()).setTitle(R.string.scan);
 
         ((MainActivity)getActivity()).restoreActionBar();
+
+        // clear the book title
+        TextView bookTitle = (TextView) rootView.findViewById(R.id.bookTitle);
+        bookTitle.setText("");
     }
 
     @Override
