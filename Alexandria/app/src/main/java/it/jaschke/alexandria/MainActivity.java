@@ -8,7 +8,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -18,8 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
-import it.jaschke.alexandria.api.Callback;
 
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -81,9 +78,11 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
         }
 
+
+        // Don't think this kind of fragment changes need to add to back stack
         fragmentManager.beginTransaction()
                 .replace(R.id.container, nextFragment)
-                .addToBackStack((String) title)
+                //.addToBackStack((String) title)
                 .commit();
     }
 
@@ -168,7 +167,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     @Override
     public void onBackPressed() {
         Log.d(LOG_TAG, "onBackPressed");
-        if (getSupportFragmentManager().getBackStackEntryCount() < 2) {
+
+        // Since i don't add the fragment changes to back stack, this should be reduce from 2 to 1
+        if (getSupportFragmentManager().getBackStackEntryCount() < 1) {
             finish();
         }
         super.onBackPressed();

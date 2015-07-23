@@ -30,6 +30,7 @@
                 android:src="@drawable/ic_action_search" />
 
             <EditText
+                android:hint="@string/keywordtoSearch"
                 android:id="@+id/searchText"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

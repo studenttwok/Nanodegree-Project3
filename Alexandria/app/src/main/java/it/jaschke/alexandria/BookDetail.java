@@ -1,6 +1,5 @@
 package it.jaschke.alexandria;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -47,6 +46,9 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
 
         boolean twoPane = getActivity().getResources().getBoolean(R.bool.two_pane);
 
+        // If the fragment is displayed in two pane mode in landscape
+        // then it should be handled in ListOfBooks, not in Book Detail
+        // Just dismiss it
         if (twoPane) {
             if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 // quit htis fragment...

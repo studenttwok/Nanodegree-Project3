@@ -5,8 +5,11 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -194,17 +197,41 @@ public class BookService extends IntentService {
                 imgUrl = bookInfo.getJSONObject(IMG_URL_PATH).getString(IMG_URL);
             }
 
+            // Save book
             writeBackBook(ean, title, subtitle, desc, imgUrl);
 
+            // Save Author
             if(bookInfo.has(AUTHORS)) {
                 writeBackAuthors(ean, bookInfo.getJSONArray(AUTHORS));
             }
+
+            // Save categories
             if(bookInfo.has(CATEGORIES)){
                 writeBackCategories(ean,bookInfo.getJSONArray(CATEGORIES) );
             }
 
+            // let user know that book is saved
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(BookService.this, R.string.bookIsSaved, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Error ", e);
+
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(BookService.this, R.string.bookIsNotSaved, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
         }
     }
 

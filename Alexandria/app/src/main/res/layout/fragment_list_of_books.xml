@@ -20,6 +20,7 @@
             android:layout_alignParentEnd="true"/>
 
         <EditText
+            android:hint="@string/keywordtoSearch"
             android:layout_width = "fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/searchText"

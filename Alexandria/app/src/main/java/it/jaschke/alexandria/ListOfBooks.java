@@ -19,7 +19,6 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import it.jaschke.alexandria.api.BookListAdapter;
-import it.jaschke.alexandria.api.Callback;
 import it.jaschke.alexandria.data.AlexandriaContract;
 
 
@@ -198,6 +197,7 @@ public class ListOfBooks extends Fragment implements LoaderManager.LoaderCallbac
             Log.d(LOG_TAG, "selectedBookPosition: " + selectedBookPosition);
         }
 
+        // If the use rotate the screen, we should try to select the selected book, when it is in two pane mode...
         if (selectedBookPosition != -1 && getResources().getBoolean(R.bool.two_pane)) {
             //bookList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
             bookList.requestFocusFromTouch();

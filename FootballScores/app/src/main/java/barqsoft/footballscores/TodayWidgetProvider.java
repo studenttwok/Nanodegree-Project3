@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import barqsoft.footballscores.service.WidgetRemoteViewsService;
-import barqsoft.footballscores.service.myFetchService;
+import barqsoft.footballscores.service.MyFetchService;
 
 
 public class TodayWidgetProvider extends AppWidgetProvider{
@@ -113,7 +113,7 @@ public class TodayWidgetProvider extends AppWidgetProvider{
 
     private void update_scores(Context context)
     {
-        Intent service_start = new Intent(context, myFetchService.class);
+        Intent service_start = new Intent(context, MyFetchService.class);
         context.startService(service_start);
     }
 

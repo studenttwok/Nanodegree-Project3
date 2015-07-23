@@ -30,12 +30,12 @@ import barqsoft.footballscores.R;
 /**
  * Created by yehya khaled on 3/2/2015.
  */
-public class myFetchService extends IntentService
+public class MyFetchService extends IntentService
 {
-    public static final String LOG_TAG = "myFetchService";
-    public myFetchService()
+    public static final String LOG_TAG = "MyFetchService";
+    public MyFetchService()
     {
-        super("myFetchService");
+        super("MyFetchService");
     }
 
     @Override
@@ -54,8 +54,8 @@ public class myFetchService extends IntentService
     private void getData (String timeFrame)
     {
         //Creating fetch URL
-        //final String BASE_URL = "http://api.football-data.org/alpha/fixtures"; //Base URL
-        final String BASE_URL = "http://hklightstudio.net/n2.json"; //Base URL
+        final String BASE_URL = "http://api.football-data.org/alpha/fixtures"; //Base URL
+        //final String BASE_URL = "http://hklightstudio.net/n2.json"; //Base URL
         final String QUERY_TIME_FRAME = "timeFrame"; //Time Frame parameter to determine days
         //final String QUERY_MATCH_DAY = "matchday";
 
