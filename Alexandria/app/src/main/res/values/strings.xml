@@ -35,4 +35,9 @@
 
     <string name="bookIsSaved">Book is saved into database successfully.</string>
     <string name="bookIsNotSaved">Error Occurs, book is not added.</string>
+
+    <string name="shareIntentType" translatable="false">text/plain</string>
+    <string name="comma" translatable="false">,</string>
+    <string name="newLine" translatable="false">\n</string>
+    <string name="default_startFragmentValue" translatable="false">0</string>
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="app_name" translatable="false">Football Scores</string>
 
@@ -52,5 +52,39 @@
     <string name="dayOfMatch">Day of match</string>
     <string name="aboutText">About text</string>
     <string name="connectionProblem">Connection problem</string>
-    <string name="hypen">-</string>
+    <string name="hypen" translatable="false">-</string>
+    <string name="longDateFormatStr" translatable="false">yyyy-MM-ddHH:mm:ss</string>
+    <string name="midDateFormatStr" translatable="false">yyyy-MM-dd:HH:mm</string>
+    <string name="dateFormatStr" translatable="false">yyyy-MM-dd</string>
+    <string name="dayFormatStr" translatable="false">EEEE</string>
+    <string name="invalidDataStr" translatable="false">-1</string>
+    <string name="footballHashtag">#Football_Scores</string>
+    <string name="shareIntentType" translatable="false">text/plain</string>
+
+    <string name="league_name_seria_a" translatable="false">Seria A</string>
+    <string name="league_name_premier_league" translatable="false">Premier League</string>
+    <string name="league_name_champions_league" translatable="false">UEFA Champions League</string>
+    <string name="league_name_primera_division" translatable="false">Primera Division</string>
+    <string name="league_name_bundesliga" translatable="false">Bundesliga</string>
+    <string name="league_name_unknown">Not known League Please report</string>
+
+    <string name="matchday_six" translatable="false">Group Stages, Matchday : 6</string>
+    <string name="matchday_seven" translatable="false">First Knockout round</string>
+    <string name="matchday_nine" translatable="false">QuarterFinal</string>
+    <string name="matchday_eleven" translatable="false">SemiFinal</string>
+    <string name="matchday_final" translatable="false">Final</string>
+    <string name="matchday_str" translatable="false">Matchday : <xliff:g id="matchday">%1$s</xliff:g></string>
+    <string name="spaceHypen" translatable="false"> - </string>
+
+    <string name="teamname_arsenal" translatable="false">Arsenal London FC</string>
+    <string name="teamname_manchester_united" translatable="false">Manchester United FC</string>
+    <string name="teamname_swansea_city_afc" translatable="false">Swansea City</string>
+    <string name="teamname_leicester_city_fc" translatable="false">Leicester City</string>
+    <string name="teamname_everton_fc" translatable="false">Everton FC</string>
+    <string name="teamname_west_ham" translatable="false">West Ham United FC</string>
+    <string name="teamname_tottenham_hotspur" translatable="false">Tottenham Hotspur FC</string>
+    <string name="teamname_west_bromwich_albion" translatable="false">West Bromwich Albion</string>
+    <string name="teamname_sunderland" translatable="false">Sunderland AFC</string>
+    <string name="teamname_stoke_city" translatable="false">Stoke City FC</string>
+
 </resources>

@@ -120,16 +120,15 @@ public class ListOfBooks extends Fragment implements LoaderManager.LoaderCallbac
             fm = getChildFragmentManager();
             ft = fm.beginTransaction();
             ft.replace(R.id.right_container, fragment);
-
+            ft.commit();
         } else {
             // one pane mode
             fm = getFragmentManager();
             ft = fm.beginTransaction();
             ft.replace(R.id.container, fragment);
-            ft.addToBackStack("Book Detail");
+            ft.addToBackStack(LOG_TAG);
+            ft.commit();
         }
-
-        ft.commit();
 
     }
 

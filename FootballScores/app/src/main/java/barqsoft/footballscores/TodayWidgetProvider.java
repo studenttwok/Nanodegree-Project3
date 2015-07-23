@@ -34,7 +34,7 @@ public class TodayWidgetProvider extends AppWidgetProvider{
             // get current Date
             long currentTime = System.currentTimeMillis();
             Date dateNow = new Date(currentTime);
-            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            SimpleDateFormat mformat = new SimpleDateFormat(context.getString(R.string.dateFormatStr), Locale.ENGLISH);
             String dateStr = mformat.format(dateNow);
 
             views.setTextViewText(R.id.date_textview, dateStr);

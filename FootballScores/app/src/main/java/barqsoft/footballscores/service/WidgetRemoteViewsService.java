@@ -2,7 +2,6 @@ package barqsoft.footballscores.service;
 
 
 import android.annotation.TargetApi;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,13 +12,11 @@ import android.widget.AdapterView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import barqsoft.footballscores.DatabaseContract;
-import barqsoft.footballscores.MainActivity;
 import barqsoft.footballscores.R;
 
 /**
@@ -76,7 +73,7 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
                 final long identityToken = Binder.clearCallingIdentity();
 
                 Date dateNow = new Date(System.currentTimeMillis());
-                SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                SimpleDateFormat mformat = new SimpleDateFormat(getString(R.string.dateFormatStr), Locale.ENGLISH);
 
                 String[] fragmentdate = new String[1];
                 fragmentdate[0] = mformat.format(dateNow);
@@ -121,15 +118,17 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
 
 
                 // set data from cursor...
+                String invalidData = getString(R.string.invalidDataStr);
+
                 String description = "";
                 String homeName = data.getString(INDEX_SCORE_HOME);
                 String awayName = data.getString(INDEX_SCORE_AWAY);
-                String score = data.getString(INDEX_SCORE_HOME_GOALS) + " - " + data.getString(INDEX_SCORE_AWAY_GOALS);
+                String score = data.getString(INDEX_SCORE_HOME_GOALS) + getString(R.string.hypen) + data.getString(INDEX_SCORE_AWAY_GOALS);
                 //String date = data.getString(INDEX_SCORE_DATE);
                 String time = data.getString(INDEX_SCORE_TIME);
 
 
-                if (data.getString(INDEX_SCORE_HOME_GOALS).equals("-1") ||  data.getString(INDEX_SCORE_AWAY_GOALS).equals("-1")) {
+                if (data.getString(INDEX_SCORE_HOME_GOALS).equals(invalidData) ||  data.getString(INDEX_SCORE_AWAY_GOALS).equals(invalidData)) {
                     score = getString(R.string.hypen);
                 }
 

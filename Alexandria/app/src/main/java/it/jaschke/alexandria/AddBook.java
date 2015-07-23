@@ -1,7 +1,6 @@
 package it.jaschke.alexandria;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,8 +17,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import it.jaschke.alexandria.barcodescanner.IntentIntegrator;
 import it.jaschke.alexandria.barcodescanner.IntentResult;
@@ -31,7 +28,6 @@ import it.jaschke.alexandria.services.DownloadImage;
 public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private final String LOG_TAG = AddBook.class.getSimpleName();
 
-    private static final String TAG = "INTENT_TO_SCAN_ACTIVITY";
     private EditText ean;
     private final int LOADER_ID = 1;
     private View rootView;
@@ -183,9 +179,9 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
         String authors = data.getString(data.getColumnIndex(AlexandriaContract.AuthorEntry.AUTHOR));
         if (authors != null ) {
-            String[] authorsArr = authors.split(",");
+            String[] authorsArr = authors.split(getString(R.string.comma));
             ((TextView) rootView.findViewById(R.id.authors)).setLines(authorsArr.length);
-            ((TextView) rootView.findViewById(R.id.authors)).setText(authors.replace(",", "\n"));
+            ((TextView) rootView.findViewById(R.id.authors)).setText(authors.replace(getString(R.string.comma), getString(R.string.newLine)));
         } else {
             ((TextView) rootView.findViewById(R.id.authors)).setLines(1);
             ((TextView) rootView.findViewById(R.id.authors)).setText("");
@@ -236,13 +232,13 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        Log.d(TAG, "onActivityResult()");
+        Log.d(LOG_TAG, "onActivityResult()");
 
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanResult != null) {
             // handle scan result
             String barcode = scanResult.getContents();
-            Log.d(TAG, "barcode: " + barcode);
+            Log.d(LOG_TAG, "barcode: " + barcode);
 
             ean.setText(barcode);
             return;
